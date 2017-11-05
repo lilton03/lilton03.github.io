@@ -14,7 +14,16 @@ Simple Minesweeper game built on Javascript
 -Timer count down, once a cell is clicked, when closed and open again the timer won't
 start unless a cell is clicked again.
 
+-Note: to use
 
+Create game object
+/*row,column,and number of mines*/
+    var game=new Game(9,9,10);
 
-To use:
+/*get game table */
+document.getElementById('mineSwipper').innerHTML=game.getTable();
+
+TO Do:
+
+Add animations
 

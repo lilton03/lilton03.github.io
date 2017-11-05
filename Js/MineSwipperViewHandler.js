@@ -7,8 +7,12 @@ Email: liltongungob03@gmail.com
 
 
 /*on mine board cell click opener display function, changes visuals on each cell that will be opened depending on their value in the mine board*/
+/*
+object elem  - board cell element
+object event - mouse click event
+ */
 function openBoardCell(elem,event) {
-    if (event.which=== 1 && elem.style.opacity!=='0.5') {
+    if (event.which === 1 && elem.style.opacity !== '0.5') {
         var colors = ['#0066ff', '#009933', '#cc9900', '#ff0066', '#66ccff', '#ccffff', '#669999', '#66ccff'];
         var inDx = elem.id.split('-');
         var row = parseInt(inDx[1]);
@@ -19,7 +23,7 @@ function openBoardCell(elem,event) {
         for (i = 0; i < openedCells.length; i++) {
             id = 'td-' + openedCells[i][0] + '-' + openedCells[i][1];
             cell = document.getElementById(id);
-            openBoardCellDelayActivator(i,cell,colors,board,openedCells,3);
+            openBoardCellDelayActivator(i, cell, colors, board, openedCells, 3);
         }
         /*check if a bomb was opened, game over is already called*/
         if (openedCells.length > 0 && board[row][column].value === 'x') {
@@ -33,19 +37,31 @@ function openBoardCell(elem,event) {
             }
             document.getElementById('td-' + row + '-' + column).style.backgroundColor = '#ffffff';
             alert(gameOverController(0));
+        }
     }
 }
-
-/*Mine Board Cell Delay Animation Timer Settings Function*/
+/*Mine Board Cell Delay Animation Timer Config Function
+*int i- index in board
+*string[] colors - style of colors
+* int [][] board - the mine board
+* int [] - the cells that are to be opened
+* int speed - the speed of the animation
+* */
 function openBoardCellDelayActivator(i,cell,colors,board,openedCells,speed) {
     setTimeout(openCellDelayAnimation, (i + 1) * speed , i, cell, colors, board, openedCells,speed);
 }
 
-/*Mine Board Cell Open Delay Animation */
+/*Mine Board Cell Open Delay Animation
+*int i- index in board
+*string[] colors - style of colors
+* int [][] board - the mine board
+* int [] - the cells that are to be opened
+* int speed - the speed of the animation
+* */
 function openCellDelayAnimation(i,cell,colors,board,openedCells,speed) {
     if (board[openedCells[i][0]][openedCells[i][1]].value === 'x') {
         if(document.getElementById('gameSettings').value==='Beginner')
-            speed+=5;
+            speed+=10;
         cell.innerHTML = '<img src="\../web/Images/bomb.png\" style="height: 15px;width: 15px">';
         setTimeout(function () {
             cell.innerHTML = '<img src="\../web/Images/bombExplod.png\" style="height: 18px;width: 18px">';
@@ -62,22 +78,29 @@ function openCellDelayAnimation(i,cell,colors,board,openedCells,speed) {
 
     }
 }
-}
-/*On mouse left click mine board cell animation function*/
+/*On mouse left click mine board cell animation function
+* object cell - board cell element
+* object event - mouse click event object
+* */
 function onClickCellAnimation(cell,event) {
     if (event.which===1 && cell.innerHTML==='' && cell.style.opacity!=='0.5') {
         cell.style.padding = '2px';
         cell.style.border = '1px solid grey';
     }
 }
-/*on mouse over and mouse leave function*/
+/*on mouse over and mouse leave mine board cell animation function
+* string color - color style to use
+* object cell - cell element
+* */
 function changeColor(color,cell){
     if(cell.style.backgroundColor!=='rgb(255, 204, 204)' && cell.style.backgroundColor!=='rgb(255, 255, 255)') {
         cell.style.backgroundColor = color;
     }
 }
 
-/*right mouse click listener function, puts flags Icons on cells*/
+/*right mouse click listener function, puts flags Icons on cells
+* object cell - board cell element
+* */
 function putFlag(cell) {
     var inDx=cell.id.split('-');
     var row=inDx[1];
@@ -102,7 +125,9 @@ function putFlag(cell) {
     }
 }
 
-/*Mine Board Settings UI function */
+/*Mine Board Settings UI function
+* string value - the difficulty of the game
+* */
 function changeSettings(value) {
     value=parseInt(value);
     var settings=[[9,9],[15,40],[30,99],[50,1000]];
@@ -129,12 +154,17 @@ function newGame(){
     else
         alert('Please insure that max number of rows and columns does not exceed 70 and the number of mines must be less than rows * columns');
 }
-/*Display game timer on screen function*/
+/*Display game timer on screen function
+* string newTime - the current time in minutes remaining of a round
+*
+* */
 function showTimerDigits(newTime) {
     document.getElementById('gameClock').value=newTime;
 }
 
-/*display remaining mines function*/
+/*display remaining mines function
+* int mines - remaining flags of the game, should probably change var name to flags and function name to showFlags
+* */
 function showMines(mines) {
     document.getElementById('remainingMines').value=mines;
 }

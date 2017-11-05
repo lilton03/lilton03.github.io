@@ -47,7 +47,9 @@ function pop(row,column,board){
 
 
 
-/*Returns all indexes of bombs in the mine board*/
+/*Returns all indexes of bombs in the mine board*
+/object [[]] board- the mine board
+ */
 function openBombCells(board){
     var openedBombCells=[];
     for(var i=0;i<board.length;i++){
@@ -60,7 +62,11 @@ function openBombCells(board){
     return openedBombCells;
 }
 
-/*Marks a mine board cell as flagged*/
+/*Marks a mine board cell as flagged
+* object[[]] board- the mine board
+* int row
+* int column
+* */
 function flagCell(board,row,column) {
     var ret=2;
     var flag=parseInt(getItemFromLocalStorage('flags'));
@@ -89,7 +95,7 @@ function flagCell(board,row,column) {
 
 
 /*Set Game to game over,
-* integer status 1 if win, 0 if loss
+* integer status -1 if win, 0 if loss
 * return string message
 */
 function gameOver(status) {
@@ -148,11 +154,18 @@ function showTimer() {
         alert(gameOver(0));
 }
 
-
+/*
+gets a specific variable from localStorage
+string name - name of variable
+ */
 function getItemFromLocalStorage(name){
     return JSON.parse(localStorage.getItem(name));
 }
-
+/*
+saves or updates a variable in the localStorage
+string name- name of the variable
+var value- the value to be saved
+ */
 function  saveItemInLocalStorage(name,value) {
     localStorage.setItem(name,JSON.stringify(value));
 }
