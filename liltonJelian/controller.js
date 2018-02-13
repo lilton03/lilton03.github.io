@@ -52,5 +52,5 @@ function display_message(chr,i,div,m,sw){
 	},(i+1)*175);
 }
 
-setTimeout(on_hover,2000);
+setTimeout(on_hover,4000);
  
